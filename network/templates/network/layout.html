@@ -4,12 +4,15 @@
 <html lang="en">
   <head>
     <title>{% block title %}EchoHub{% endblock %}</title>
+    <meta name="version" content="1.0.0">
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+    <meta name="theme-color" content="#f8f9fa" />
+    <meta name="apple-mobile-web-app-capable" content="black-translucent" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta charset="utf-8" />
@@ -26,8 +29,8 @@
     />
     <!-- jQuery first -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link href="{% static 'network/styles.css' %}" rel="stylesheet" />
-    <script src="{% static 'network/index.js' %}"></script>
+    <link href="{% static 'network/styles.css' %}?v={{ STATIC_VERSION }}" rel="stylesheet" />
+    <script src="{% static 'network/index.js' %}?v={{ STATIC_VERSION }}"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
