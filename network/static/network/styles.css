@@ -1,78 +1,104 @@
-#mainContainer{
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: 500px;
-    margin-right: 500px;
+body {
+  background-color: rgb(222, 255, 255);
 }
-#newPost,#main{
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    border: 2px solid #cfcdcd;
+#mainContainer {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+@media screen and (max-width: 700px) {
+  #mainContainer {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+#newPost,
+#main {
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border: 2px solid #cfcdcd;
 }
 textarea {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 2px solid #cfcdcd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 2px solid #cfcdcd;
+  width: 100%;
 }
-.col>p,.col>h1 { 
-    text-align: center;
-    font-weight: bold;
-}
-
-#submit{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 22px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.col > p,
+.col > h1 {
+  text-align: center;
+  font-weight: bold;
 }
 
-#posts{
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    border: 2px solid #cfcdcd;
+#submit {
+  background-color: #4c93af; /* Green */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
 
-h4{
-    margin-bottom: 0px;
+#posts,
+#newPost,
+#main {
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border: 2px solid #c7c7c7;
+  background-color: white;
 }
 
-.content{
-    font-size: 30px;
+h4 {
+  margin-bottom: 0px;
+}
+
+.content {
+  font-size: 30px;
 }
 .btn {
-    width: 100%;
+  width: 100%;
 }
-.page-item, .like{
-    cursor: pointer;
+.page-item,
+.like {
+  cursor: pointer;
 }
-.disabled{
-    cursor: not-allowed;
-    background-color: rgb(184, 178, 178) !important;
+.disabled {
+  cursor: not-allowed;
+  background-color: rgb(184, 178, 178) !important;
 }
-.date{
-    color : rgb(190, 183, 183);
+.date {
+  color: rgb(190, 183, 183);
 }
-.edit{
-    cursor: pointer;
-    color: rgb(53, 53, 238);
+.edit {
+  cursor: pointer;
+  color: rgb(53, 53, 238);
 }
-.line{
-    width: 100%;
-    margin-bottom: 2%;
-    border-bottom: 1px solid rgb(201, 201, 201);
+.line {
+  width: 100%;
+  margin-bottom: 2%;
+  border-bottom: 1px solid rgb(201, 201, 201);
+}
+
+.newpost {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease;
+}
+.newpost.show {
+  opacity: 1;
+  transform: translateY(0);
 }

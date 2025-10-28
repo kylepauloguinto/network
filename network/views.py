@@ -66,8 +66,11 @@ def posts(request, action, pageNo):
     #filter post by date descending order
     if hasPost :
         posting = posting.order_by("-date").all()
-        posting = Paginator(posting,10)
-        posting = posting.page(pageNo).object_list
+        paginator = Paginator(posting,10)
+        if pageNo <= paginator.num_pages     :
+            posting = paginator.page(pageNo).object_list
+        else:
+            posting = []
     
     return JsonResponse([postsDisplay.serialize() for postsDisplay in posting], safe=False)
 
@@ -87,10 +90,13 @@ def compose(request):
     composePost.save()
 
     posting = Posts.objects.all()
+    newPost = Posts.objects.filter(postUser=request.user)
+    newPost = newPost.order_by("-date").first()
 
     return JsonResponse({
         "message": "Posted successfully.",
-        "noOfPost": posting.count()
+        "noOfPost": posting.count(),
+        "newPost": newPost.serialize()
     }, status=201)
 
 @csrf_exempt

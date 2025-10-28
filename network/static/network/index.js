@@ -1,6 +1,7 @@
 let pageNo = 1;
 let postingCount = 0;
 let noOfPostPerPage = 10;
+let pageExceeded = false;
 
 document.addEventListener("DOMContentLoaded", function () {
   var url = window.location.href;
@@ -24,7 +25,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
   display_post(pageNo);
+
+  $(window).scroll(function () {
+    if (
+      $(window).scrollTop() + $(window).height() == $(document).height() &&
+      pageExceeded != true
+    ) {
+      pageNo++;
+      display_post(pageNo);
+    }
+  });
 });
 
 /*
@@ -47,9 +59,115 @@ function addPost() {
       postingCount = result.noOfPost;
       document.querySelector("#submit").setAttribute("disabled", "");
       document.querySelector("#submit").setAttribute("class", "disabled");
+      new_post(result.newPost);
       page(pageNo);
     });
 }
+/*
+/ Function that display new posts
+*/
+function new_post(data) {
+  var url = window.location.href;
+  var action;
+  var profilePath;
+  url = url.split("/");
+  const allPostsDiv = document.querySelector("#allPosts");
+
+  //if url is not blank, the url is from profile
+  //if the user is in the login or register screen, it will skip the below processes
+  //if not, the it is in the index
+  if (url[4] !== undefined) {
+    action = url[4];
+  } else if (url[3] === "login" || url[3] === "register") {
+    return 0;
+  } else {
+    action = "allposts";
+  }
+
+  // if url is not blank, the url is from profile
+  // if not, then it is in index and needs to link the profile
+  if (url[3] !== "") {
+    profilePath = "";
+  } else {
+    profilePath = "profile/";
+  }
+
+  const div = document.createElement("div");
+  const divLabel = document.createElement("div");
+  const divLine = document.createElement("div");
+
+  div.setAttribute("id", "posts");
+  div.setAttribute("class", `content-${data.id}`);
+  divLabel.setAttribute("id", `content-${data.id}`);
+  divLine.setAttribute("class", "line");
+  const h4 = document.createElement("h4");
+  const a = document.createElement("a");
+  const p1 = document.createElement("label");
+  const p2 = document.createElement("p");
+  const likers = document.createElement("label");
+  const likersText = document.createElement("span");
+  const like = document.createElement("span");
+
+  const aEdit = document.createElement("label");
+  var loginUser = parseInt(document.querySelector("#loginUser").innerHTML);
+  likers.setAttribute("id", `like-${data.id}`);
+
+  //display icon liked when the user likes the post
+  if (data.likers.indexOf(loginUser) > -1) {
+    like.innerHTML = "&#9829;";
+    like.setAttribute("class", `like`);
+    like.setAttribute("onclick", `unlike(${data.id})`);
+
+    //display icon to unliked when the user didn't like the post
+  } else {
+    like.innerHTML = "&#9825;";
+    like.setAttribute("class", `like`);
+    like.setAttribute("onclick", `like(${data.id})`);
+  }
+
+  let likeText = "likes";
+  if (data.likers.length < 2) {
+    likeText = "like";
+  }
+
+  likersText.innerHTML = `&nbsp;&nbsp;${data.likers.length} &nbsp;&nbsp;${likeText}`;
+  likersText.setAttribute("style", "position:absolute; padding-top:10px;");
+  like.setAttribute("style", "font-size:28px;");
+
+  p1.setAttribute("id", `date-${data.id}`);
+  p1.setAttribute("class", "date");
+  p2.setAttribute("id", `post-content-${data.id}`);
+
+  //if the post is posted by login user, it will allow to edit the post
+  if (loginUser != "None" && loginUser == data.postUserId) {
+    aEdit.setAttribute("onclick", `edit(${data.id})`);
+    aEdit.setAttribute("class", "edit");
+    aEdit.setAttribute("id", `edit-${data.id}`);
+    aEdit.innerHTML = "Edit";
+  }
+
+  a.setAttribute("href", `${profilePath}${data.postUserId}`);
+  a.innerHTML = data.postUser;
+  h4.append(a);
+  p1.innerHTML = data.date + "&nbsp";
+  p2.innerHTML = data.postDescription.replaceAll("\n", "<br>");
+  likers.append(like);
+  likers.append("");
+  likers.append(likersText);
+  divLabel.append(p2);
+  div.append(h4);
+  div.append(p1);
+  div.append(aEdit);
+  div.append(divLabel);
+  div.append(divLine);
+  div.append(likers);
+  allPostsDiv.prepend(div);
+  div.classList.add("newpost");
+  requestAnimationFrame(() => {
+    div.classList.add("show");
+  });
+}
+
 /*
 / Function that display all posts
 */
@@ -95,10 +213,12 @@ function display_post(pageNo) {
       } else if (postingCount != null) {
         document.getElementsByClassName("pagination")[0].style.visibility =
           "hidden";
+        pageExceeded = true;
       }
 
+      // Commenting out for not using the pagination
       //clear all items
-      allPostsDiv.innerHTML = "";
+      //allPostsDiv.innerHTML = "";
 
       //last page checker
       lastPage = postingCount / noOfPostPerPage;
@@ -332,7 +452,8 @@ function page(value) {
     document.querySelector("#next").hidden = false;
   }
 
-  display_post(pageNo);
+  // Commenting out for not using the pagination
+  //display_post(pageNo);
 }
 /*
 / Function that let the user unfollow a user
