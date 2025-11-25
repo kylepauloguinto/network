@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <title>{% block title %}EchoHub{% endblock %}</title>
-    <meta name="version" content="1.0.0">
+    <meta name="version" content="1.0.0" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -27,47 +27,61 @@
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
+    <!-- Bottom nav icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <!-- jQuery first -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link href="{% static 'network/styles.css' %}?v={{ STATIC_VERSION }}" rel="stylesheet" />
+    <link
+      href="{% static 'network/styles.css' %}?v={{ STATIC_VERSION }}"
+      rel="stylesheet"
+    />
     <script src="{% static 'network/index.js' %}?v={{ STATIC_VERSION }}"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'index' %}">EchoHub</a>
-
-      <div>
-        <ul class="navbar-nav mr-auto">
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' user.id %}"
-              ><strong>{{ user.username }}</strong></a
-            >
-          </li>
-          {% endif %}
-          <label id="loginUser" hidden>{{user.id}}</label>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">Feeds</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'following' %}">Following</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Log In</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-          {% endif %}
-        </ul>
+    <!-- Top Navigation -->
+    <nav class="navigation-bar">
+      <div class="nav-brand">
+        <a href="{% url 'index' %}">EchoHub</a>
+      </div>
+      <div class="top-nav">
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'profile' user.id %}"
+          ><strong>{{ user.username }}</strong></a
+        >
+        {% endif %} {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'following' %}">Following</a>
+        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+        {% endif %}
+        <label id="loginUser" hidden>{{user.id}}</label>
       </div>
     </nav>
-
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <a id="nav-active-bottom" href="{% url 'index' %}">
+        <i class="fa-solid fa-list-check"></i>
+        <span>Feeds</span>
+      </a>
+      {% if user.is_authenticated %}
+      <a id="nav-create-bottom" href="{% url 'following' %}">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Following</span>
+      </a>
+      <a id="nav-all-bottom" href="{% url 'profile' user.id %}">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>{{ user.username }}</span>
+      </a>
+      {% else %}
+      <a id="nav-create-bottom" href="{% url 'login' %}">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>Log In</span>
+      </a>
+      {% endif %}
+    </nav>
     <div class="body">{% block body %} {% endblock %}</div>
   </body>
 </html>

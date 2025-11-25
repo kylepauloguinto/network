@@ -1,30 +1,32 @@
-{% extends "network/layout.html" %}
+{% extends "network/layout.html" %} {% block body %}
+<div id="mainContainer">
+  <h2>News Feeds</h2>
 
-{% block body %}
-    <div id="mainContainer">
-        <h2>News Feeds</h2>
-        
-        {% if user.is_authenticated %}
-            <div id="newPost">
-              <textarea id="addNewPost" name="addNewPost" rows="4" cols="110" placeholder="Add New Post"></textarea>
-              <input id="submit" type="submit" value="Post" onclick="addPost()" class="disabled" disabled>
-            </div>
-        {% endif %}
-        <div id="allPosts">
-        </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-end">
-              <li class="page-item disabled" id="previous" hidden>
-                <input type="button" class="page-link" onclick="page(this.value)" value="Previous" tabindex="-1" aria-disabled="true"></a>
-              </li>
-              <li class="page-item active"><input type="button" class="page-link" onclick="page(this.value)" value="1"></li>
-              <li class="page-item"><input type="button" class="page-link" onclick="page(this.value)" value="2"></li>
-              <li class="page-item"><input type="button" class="page-link" onclick="page(this.value)" value="3"></li>
-              <li class="page-item" id="next">
-                <input type="button" class="page-link" onclick="page(this.value)" value="Next">
-              </li>
-            </ul>
-          </nav>
-        <p id="postingCount" hidden>{{ noOfPost.count }}</p>
-    </div>
+  {% if user.is_authenticated %}
+  <div id="newPost">
+    <textarea
+      id="addNewPost"
+      name="addNewPost"
+      rows="4"
+      cols="110"
+      placeholder="Add New Post"
+    ></textarea>
+    <input
+      id="submit"
+      type="submit"
+      value="Post"
+      onclick="addPost()"
+      class="disabled"
+      disabled
+    />
+  </div>
+  {% endif %}
+  <div id="allPosts"></div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item disabled" id="previous" hidden></li>
+    </ul>
+  </nav>
+  <p id="postingCount" hidden>{{ noOfPost.count }}</p>
+</div>
 {% endblock %}

@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(222, 255, 255);
+  background-color: #86ddf5;
 }
 #mainContainer {
   padding-top: 20px;
@@ -22,13 +22,13 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
-  border: 2px solid #cfcdcd;
+  border: 2px solid #2fa3c4;
 }
 textarea {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  border: 2px solid #cfcdcd;
+  border: 2px solid #2fa3c4;
   width: 100%;
 }
 .col > p,
@@ -58,7 +58,7 @@ textarea {
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
-  border: 2px solid #c7c7c7;
+  border: 2px solid #2fa3c4;
   background-color: white;
 }
 
@@ -101,4 +101,85 @@ h4 {
 .newpost.show {
   opacity: 1;
   transform: translateY(0);
+}
+.navigation-bar {
+  width: 100%;
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+.nav-brand a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin: 0 20px;
+  font-size: 24px;
+  font-weight: 500;
+  padding-bottom: 5px;
+  position: relative;
+  transition: color 0.3s;
+}
+/* Top Navigation Bar */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+}
+.top-nav a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin: 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 5px;
+  position: relative;
+  transition: color 0.3s;
+}
+/* Bottom Navigation Bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #2fa3c4;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  visibility: hidden;
+}
+.bottom-nav a {
+  color: #ffffff;
+  font-size: 22px;
+  text-decoration: none;
+  text-align: center;
+  transition: color 0.3s, transform 0.3s;
+}
+.bottom-nav a.active {
+  color: #fff;
+  transform: translateY(-4px);
+}
+.bottom-nav a:hover {
+  color: #fff;
+}
+/* Icon labels (optional, small text below icons) */
+.bottom-nav a span {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+}
+/* Optional: active label slightly brighter */
+.bottom-nav a.active span {
+  color: #fff;
+  font-weight: 600;
+}
+@media screen and (max-width: 915px) {
+  .top-nav {
+    visibility: hidden;
+  }
+  .bottom-nav {
+    visibility: visible !important;
+  }
 }
